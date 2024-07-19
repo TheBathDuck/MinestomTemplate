@@ -11,9 +11,9 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
-public class RotationalPlacement extends BlockPlacementRule {
+public class AnvilPlacement extends BlockPlacementRule {
 
-    public RotationalPlacement(Block block) {
+    public AnvilPlacement(Block block) {
         super(block);
     }
 
