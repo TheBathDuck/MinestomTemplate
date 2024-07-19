@@ -6,9 +6,7 @@ import net.minestom.server.event.EventListener;
 import net.minestom.server.event.player.PlayerBlockInteractEvent;
 import net.minestom.server.instance.Instance;
 import net.minestom.server.instance.block.Block;
-import net.minestom.server.network.packet.server.play.OpenSignEditorPacket;
 import nl.thebathduck.minestom.blocks.placement.DoorPlacement;
-import nl.thebathduck.minestom.blocks.placement.SignPlacement;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
@@ -29,7 +27,6 @@ public class BlockInteractListener implements EventListener<PlayerBlockInteractE
             Block doorInteraction = block.withProperty("open", Objects.equals(block.getProperty("open"), "true") ? "false" : "true");
 
             boolean isUpper = doorInteraction.getProperty("half").equals("upper");
-            event.getPlayer().sendMessage("isUpper: " + isUpper);
 
             Pos otherDoorPos = (isUpper ?
                     event.getBlockPosition().sub(0, 1, 0) :

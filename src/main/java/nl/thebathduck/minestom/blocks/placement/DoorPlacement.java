@@ -1,6 +1,5 @@
 package nl.thebathduck.minestom.blocks.placement;
 
-import net.minestom.server.MinecraftServer;
 import net.minestom.server.coordinate.Point;
 import net.minestom.server.coordinate.Pos;
 import net.minestom.server.coordinate.Vec;
@@ -9,7 +8,6 @@ import net.minestom.server.instance.block.Block;
 import net.minestom.server.instance.block.BlockFace;
 import net.minestom.server.instance.block.rule.BlockPlacementRule;
 import net.minestom.server.utils.Direction;
-import nl.thebathduck.minestom.Server;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -21,6 +19,7 @@ public class DoorPlacement extends BlockPlacementRule {
     public DoorPlacement(Block block) {
         super(block);
     }
+
 
     @Override
     public @Nullable Block blockPlace(@NotNull BlockPlacementRule.PlacementState placementState) {
