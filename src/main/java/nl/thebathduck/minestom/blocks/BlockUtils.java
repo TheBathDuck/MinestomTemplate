@@ -6,8 +6,11 @@ import net.minestom.server.instance.block.Block;
 import net.minestom.server.network.ConnectionState;
 import net.minestom.server.network.packet.client.play.ClientUpdateSignPacket;
 import nl.thebathduck.minestom.blocks.handlers.SignHandler;
+import nl.thebathduck.minestom.blocks.listeners.BlockBreakListener;
+import nl.thebathduck.minestom.blocks.listeners.BlockInteractListener;
 import nl.thebathduck.minestom.blocks.listeners.BlockPlaceListener;
 import nl.thebathduck.minestom.blocks.packet.SignPacketListener;
+import nl.thebathduck.minestom.blocks.placement.DoorPlacement;
 import nl.thebathduck.minestom.blocks.placement.SignPlacement;
 import nl.thebathduck.minestom.blocks.placement.SlabPlacement;
 import nl.thebathduck.minestom.blocks.placement.StairPlacement;
@@ -28,9 +31,16 @@ public class BlockUtils {
             MinecraftServer.getBlockManager().registerBlockPlacementRule(new SignPlacement(block));
         });
 
+        Block.values().stream().filter(block -> block.namespace().asString().contains("door")).forEach(block -> {
+            MinecraftServer.getBlockManager().registerBlockPlacementRule(new DoorPlacement(block));
+        });
+
         MinecraftServer.getBlockManager().registerHandler("minecraft:sign", SignHandler::new);
         MinecraftServer.getPacketListenerManager().setListener(ConnectionState.PLAY, ClientUpdateSignPacket.class, new SignPacketListener());
+
         MinecraftServer.getGlobalEventHandler().addListener(new BlockPlaceListener());
+        MinecraftServer.getGlobalEventHandler().addListener(new BlockBreakListener());
+        MinecraftServer.getGlobalEventHandler().addListener(new BlockInteractListener());
     }
 
 }
