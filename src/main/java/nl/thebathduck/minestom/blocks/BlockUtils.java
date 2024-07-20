@@ -14,6 +14,7 @@ import nl.thebathduck.minestom.blocks.listeners.BlockInteractListener;
 import nl.thebathduck.minestom.blocks.listeners.BlockPlaceListener;
 import nl.thebathduck.minestom.blocks.packet.SignPacketListener;
 import nl.thebathduck.minestom.blocks.placement.*;
+import nl.thebathduck.minestom.blocks.placement.rotational.RotationalPlacement;
 
 import java.util.Map;
 
