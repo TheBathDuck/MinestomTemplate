@@ -6,6 +6,7 @@ import net.minestom.server.instance.block.Block;
 import net.minestom.server.instance.block.BlockFace;
 import net.minestom.server.network.ConnectionState;
 import net.minestom.server.network.packet.client.play.ClientUpdateSignPacket;
+import net.minestom.server.tag.Tag;
 import nl.thebathduck.minestom.Server;
 import nl.thebathduck.minestom.blocks.handlers.SignHandler;
 import nl.thebathduck.minestom.blocks.listeners.BlockBreakListener;
@@ -13,6 +14,8 @@ import nl.thebathduck.minestom.blocks.listeners.BlockInteractListener;
 import nl.thebathduck.minestom.blocks.listeners.BlockPlaceListener;
 import nl.thebathduck.minestom.blocks.packet.SignPacketListener;
 import nl.thebathduck.minestom.blocks.placement.*;
+
+import java.util.Map;
 
 @UtilityClass
 public class BlockUtils {
@@ -30,18 +33,24 @@ public class BlockUtils {
             MinecraftServer.getBlockManager().registerBlockPlacementRule(new SignPlacement(block));
         });
 
-        Block.values().stream().filter(block -> block.namespace().asString().contains("bed")).forEach(block -> {
-            MinecraftServer.getBlockManager().registerBlockPlacementRule(new BedPlacement(block));
-        });
-
         Block.values().stream().filter(block -> block.namespace().asString().contains("_door")).forEach(block -> {
             MinecraftServer.getBlockManager().registerBlockPlacementRule(new DoorPlacement(block));
         });
 
-        Block.values().stream().filter(block -> block.namespace().asString().endsWith("_anvil") || block.name().equals("minecraft:anvil")).forEach(block -> {
-            Server.getLogger().info("Registered for: " + block.namespace().asString());
-            MinecraftServer.getBlockManager().registerBlockPlacementRule(new RotationalPlacement(block));
+        Block.values().stream().filter(block -> block.namespace().asString().contains("bed")).forEach(block -> {
+            MinecraftServer.getBlockManager().registerBlockPlacementRule(new BedPlacement(block));
         });
+
+        Map<Block, Boolean> rotationalPlacementBlocks = Map.of(
+                Block.LOOM, true,
+                Block.FURNACE, true,
+                Block.BEEHIVE, true,
+                Block.BELL, false
+        );
+        rotationalPlacementBlocks.forEach((block, opposite) -> {
+            MinecraftServer.getBlockManager().registerBlockPlacementRule(new RotationalPlacement(block, opposite));
+        });
+
 
         MinecraftServer.getBlockManager().registerHandler("minecraft:sign", SignHandler::new);
         MinecraftServer.getPacketListenerManager().setListener(ConnectionState.PLAY, ClientUpdateSignPacket.class, new SignPacketListener());
