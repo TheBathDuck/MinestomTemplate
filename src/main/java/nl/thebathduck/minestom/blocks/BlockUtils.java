@@ -6,7 +6,6 @@ import net.minestom.server.instance.block.Block;
 import net.minestom.server.instance.block.BlockFace;
 import net.minestom.server.network.ConnectionState;
 import net.minestom.server.network.packet.client.play.ClientUpdateSignPacket;
-import net.minestom.server.tag.Tag;
 import nl.thebathduck.minestom.Server;
 import nl.thebathduck.minestom.blocks.handlers.SignHandler;
 import nl.thebathduck.minestom.blocks.listeners.BlockBreakListener;
@@ -31,6 +30,10 @@ public class BlockUtils {
             MinecraftServer.getBlockManager().registerBlockPlacementRule(new SignPlacement(block));
         });
 
+        Block.values().stream().filter(block -> block.namespace().asString().contains("bed")).forEach(block -> {
+            MinecraftServer.getBlockManager().registerBlockPlacementRule(new BedPlacement(block));
+        });
+
         Block.values().stream().filter(block -> block.namespace().asString().contains("_door")).forEach(block -> {
             MinecraftServer.getBlockManager().registerBlockPlacementRule(new DoorPlacement(block));
         });
@@ -39,7 +42,6 @@ public class BlockUtils {
             Server.getLogger().info("Registered for: " + block.namespace().asString());
             MinecraftServer.getBlockManager().registerBlockPlacementRule(new RotationalPlacement(block));
         });
-
 
         MinecraftServer.getBlockManager().registerHandler("minecraft:sign", SignHandler::new);
         MinecraftServer.getPacketListenerManager().setListener(ConnectionState.PLAY, ClientUpdateSignPacket.class, new SignPacketListener());
