@@ -1,4 +1,4 @@
-package nl.thebathduck.minestom.blocks.handlers;
+package nl.thebathduck.minestom.blocks.handler;
 
 import net.minestom.server.instance.block.BlockHandler;
 import net.minestom.server.tag.Tag;

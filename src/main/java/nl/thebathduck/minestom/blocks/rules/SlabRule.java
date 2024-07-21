@@ -1,24 +1,23 @@
-package nl.thebathduck.minestom.blocks.placement;
-
+package nl.thebathduck.minestom.blocks.rules;
 import net.minestom.server.coordinate.Vec;
 import net.minestom.server.instance.block.Block;
 import net.minestom.server.instance.block.BlockFace;
-import net.minestom.server.instance.block.rule.BlockPlacementRule;
+import nl.thebathduck.minestom.blocks.rule.BlockRule;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
 
-public class SlabPlacement extends BlockPlacementRule {
+public class SlabRule extends BlockRule {
     private static final String PROP_TYPE = "type";
 
-    public SlabPlacement(@NotNull Block block) {
+    public SlabRule(@NotNull Block block) {
         super(block);
     }
 
     @Override
-    public @Nullable Block blockPlace(@NotNull BlockPlacementRule.PlacementState placementState) {
+    public @Nullable Block blockPlace(@NotNull net.minestom.server.instance.block.rule.BlockPlacementRule.PlacementState placementState) {
         var existingBlock = placementState.instance().getBlock(placementState.placePosition());
         if (existingBlock.id() == this.block.id()) {
             return existingBlock.withProperty(PROP_TYPE, "double");

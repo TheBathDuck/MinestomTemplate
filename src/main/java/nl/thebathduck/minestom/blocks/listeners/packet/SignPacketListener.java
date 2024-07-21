@@ -1,4 +1,5 @@
-package nl.thebathduck.minestom.blocks.packet;
+package nl.thebathduck.minestom.blocks.listeners.packet;
+
 
 import net.kyori.adventure.nbt.*;
 import net.kyori.adventure.text.Component;

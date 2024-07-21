@@ -1,31 +1,29 @@
-package nl.thebathduck.minestom.blocks.placement.rotational;
+package nl.thebathduck.minestom.blocks.rules.generic;
 
 import net.minestom.server.coordinate.Pos;
 import net.minestom.server.instance.block.Block;
 import net.minestom.server.instance.block.BlockFace;
-import net.minestom.server.instance.block.rule.BlockPlacementRule;
 import net.minestom.server.utils.Direction;
+import nl.thebathduck.minestom.blocks.rule.BlockRule;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
-public class RotationalPlacement extends BlockPlacementRule {
-
-    private final boolean opposite;
-
-    public RotationalPlacement(Block block, boolean opposite) {
+public class OppositeRotationalRule extends BlockRule {
+    public OppositeRotationalRule(Block block) {
         super(block);
-        this.opposite = opposite;
     }
 
     @Override
-    public @Nullable Block blockPlace(@NotNull BlockPlacementRule.PlacementState placementState) {
+    public @Nullable Block blockPlace(@NotNull net.minestom.server.instance.block.rule.BlockPlacementRule.PlacementState placementState) {
+        if (!canPlaceAt(placementState.instance(), placementState.placePosition(), placementState.blockFace().toDirection().opposite(), placementState.isPlayerShifting())) return null;
+
         Pos playerPos = Objects.requireNonNullElse(placementState.playerPosition(), Pos.ZERO);
         Direction direction = BlockFace.fromYaw(playerPos.yaw()).toDirection();
         BlockFace facing = BlockFace.fromDirection(direction);
 
-        BlockFace newFace = (opposite ? facing.getOppositeFace() : facing);
+        BlockFace newFace = facing.getOppositeFace();
 
         return placementState.block().withProperty("facing", newFace.name().toLowerCase());
     }

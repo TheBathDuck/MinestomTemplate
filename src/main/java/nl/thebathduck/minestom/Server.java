@@ -8,7 +8,7 @@ import net.minestom.server.extras.MojangAuth;
 import net.minestom.server.instance.InstanceContainer;
 import net.minestom.server.instance.LightingChunk;
 import net.minestom.server.instance.anvil.AnvilLoader;
-import nl.thebathduck.minestom.blocks.BlockUtils;
+import nl.thebathduck.minestom.blocks.BlocksRegistry;
 import nl.thebathduck.minestom.commands.ServerInfoCommand;
 import nl.thebathduck.minestom.listeners.PlayerConfigurateListener;
 import nl.thebathduck.minestom.listeners.PlayerSpawnListener;
@@ -40,7 +40,8 @@ public class Server {
         worldInstance.setChunkLoader(new AnvilLoader(worldFolder.getPath()));
         worldInstance.setChunkSupplier(LightingChunk::new);
 
-        BlockUtils.register();
+        BlocksRegistry.register();
+
         registerListeners();
         registerCommands();
 
