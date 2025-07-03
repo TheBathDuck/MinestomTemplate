@@ -2,14 +2,12 @@ package nl.thebathduck.minestom;
 
 import lombok.Getter;
 import net.minestom.server.MinecraftServer;
-import net.minestom.server.command.CommandManager;
-import net.minestom.server.event.GlobalEventHandler;
+import net.minestom.server.event.Event;
+import net.minestom.server.event.EventNode;
 import net.minestom.server.extras.MojangAuth;
 import net.minestom.server.instance.InstanceContainer;
 import net.minestom.server.instance.LightingChunk;
 import net.minestom.server.instance.anvil.AnvilLoader;
-import nl.thebathduck.minestom.blocks.BlocksRegistry;
-import nl.thebathduck.minestom.commands.ServerInfoCommand;
 import nl.thebathduck.minestom.listeners.PlayerConfigurateListener;
 import nl.thebathduck.minestom.listeners.PlayerSpawnListener;
 import org.slf4j.Logger;
@@ -40,24 +38,23 @@ public class Server {
         worldInstance.setChunkLoader(new AnvilLoader(worldFolder.getPath()));
         worldInstance.setChunkSupplier(LightingChunk::new);
 
-        BlocksRegistry.register();
-
-        registerListeners();
-        registerCommands();
+        var eventHandler = MinecraftServer.getGlobalEventHandler();
+        eventHandler.addChild(events());
 
         MojangAuth.init();
         minecraftServer.start("0.0.0.0", 25565);
+        logger.info("woah");
+        logger.warn("warn");
+        logger.error("err");
     }
 
-    private void registerListeners() {
-        GlobalEventHandler globalEventHandler = MinecraftServer.getGlobalEventHandler();
-        globalEventHandler.addListener(new PlayerConfigurateListener());
-        globalEventHandler.addListener(new PlayerSpawnListener());
+    private EventNode<Event> events() {
+        EventNode<Event> events = EventNode.all("server");
+        events.addListener(new PlayerConfigurateListener());
+        events.addListener(new PlayerSpawnListener());
+
+        return events;
     }
 
-    private void registerCommands() {
-        CommandManager commandManager = MinecraftServer.getCommandManager();
-        commandManager.register(new ServerInfoCommand());
-    }
 
 }

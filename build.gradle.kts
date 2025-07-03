@@ -14,11 +14,10 @@ repositories {
 }
 
 dependencies {
-    // get latest from https://minestom.net/docs/setup/dependencies
-    implementation("net.minestom:minestom-snapshots:1f34e60ea6")
+    implementation("net.minestom:minestom-snapshots:4fe2993057")
 
-    implementation("net.kyori:adventure-text-minimessage:4.12.0")
-    implementation("ch.qos.logback:logback-classic:1.4.14")
+    implementation("net.kyori:adventure-text-minimessage:4.23.0")
+    implementation("ch.qos.logback:logback-classic:1.5.18")
 }
 
 tasks.withType<Jar> {

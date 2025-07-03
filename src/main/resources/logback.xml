@@ -1,6 +1,6 @@
 <configuration>
 
-    <conversionRule conversionWord="highlightex" converterClass="nl.thebathduck.minestom.utils.LoggingConfiguration"/>
+    <conversionRule conversionWord="highlightex" class="nl.thebathduck.minestom.utils.LoggingConfiguration"/>
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>

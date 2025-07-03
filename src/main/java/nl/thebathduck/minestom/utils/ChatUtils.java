@@ -10,6 +10,7 @@ import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 
 @UtilityClass
 public class ChatUtils {
+
     public Component color(String message) {
         MiniMessage miniMessage = MiniMessage.builder()
                 .editTags(tags -> {
@@ -19,4 +20,5 @@ public class ChatUtils {
                 }).build();
         return miniMessage.deserialize(message).decoration(TextDecoration.ITALIC, false);
     }
+
 }

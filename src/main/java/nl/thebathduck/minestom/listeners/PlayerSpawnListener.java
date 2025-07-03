@@ -7,6 +7,7 @@ import net.minestom.server.event.player.PlayerSpawnEvent;
 import org.jetbrains.annotations.NotNull;
 
 public class PlayerSpawnListener implements EventListener<PlayerSpawnEvent> {
+
     @Override
     public @NotNull Class<PlayerSpawnEvent> eventType() {
         return PlayerSpawnEvent.class;
@@ -19,4 +20,5 @@ public class PlayerSpawnListener implements EventListener<PlayerSpawnEvent> {
         player.teleport(new Pos(-70, 125, -1400));
         return Result.SUCCESS;
     }
+
 }
