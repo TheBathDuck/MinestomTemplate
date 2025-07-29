@@ -3,8 +3,8 @@ package nl.thebathduck.minestom.utils.configuration;
 
 import lombok.Getter;
 import lombok.SneakyThrows;
-import nl.mineplay.lobby.EntryPoint;
-import nl.mineplay.lobby.MineplayLobby;
+import nl.thebathduck.minestom.Bootstrap;
+import nl.thebathduck.minestom.Server;
 import org.spongepowered.configurate.ConfigurationNode;
 import org.spongepowered.configurate.loader.HeaderMode;
 import org.spongepowered.configurate.yaml.NodeStyle;
@@ -21,7 +21,7 @@ public abstract class ConfigurateConfig {
     @SneakyThrows
     public ConfigurateConfig(String name) {
         loader = YamlConfigurationLoader.builder()
-                .path(new File(EntryPoint.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()).getParentFile().toPath().resolve(name))
+                .path(new File(Bootstrap.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()).getParentFile().toPath().resolve(name))
                 .indent(2)
                 .nodeStyle(NodeStyle.BLOCK)
                 .headerMode(HeaderMode.PRESET)
@@ -30,7 +30,7 @@ public abstract class ConfigurateConfig {
         try {
             rootNode = loader.load();
         } catch (IOException e) {
-            MineplayLobby.getLogger().warn("An error occurred while loading this configuration: {}", e.getMessage());
+            Server.getLogger().warn("An error occurred while loading this configuration: {}", e.getMessage());
         }
     }
 
@@ -38,7 +38,7 @@ public abstract class ConfigurateConfig {
         try {
             loader.save(rootNode);
         } catch (Exception e) {
-            MineplayLobby.getLogger().warn("Unable to save your messages configuration! Sorry! {}", e.getMessage());
+            Server.getLogger().warn("Unable to save your messages configuration! Sorry! {}", e.getMessage());
         }
     }
 }
