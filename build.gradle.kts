@@ -11,6 +11,7 @@ repositories {
     mavenCentral()
     mavenLocal()
     maven(url = "https://jitpack.io")
+    maven(url = "https://repo.hypera.dev/snapshots/")
 }
 
 dependencies {
@@ -18,6 +19,14 @@ dependencies {
 
     implementation("net.kyori:adventure-text-minimessage:4.23.0")
     implementation("ch.qos.logback:logback-classic:1.5.18")
+
+    implementation("org.spongepowered:configurate-yaml:4.1.2")
+    implementation("org.spongepowered:configurate-core:4.1.2")
+
+    implementation("dev.lu15:luckperms-minestom:5.4-SNAPSHOT") {
+        exclude("org.spongepowered")
+        exclude("net.minestom")
+    }
 }
 
 tasks.withType<Jar> {

@@ -4,6 +4,7 @@ import net.minestom.server.coordinate.Pos;
 import net.minestom.server.entity.Player;
 import net.minestom.server.event.EventListener;
 import net.minestom.server.event.player.PlayerSpawnEvent;
+import nl.thebathduck.minestom.player.PermissionPlayer;
 import org.jetbrains.annotations.NotNull;
 
 public class PlayerSpawnListener implements EventListener<PlayerSpawnEvent> {
@@ -16,7 +17,14 @@ public class PlayerSpawnListener implements EventListener<PlayerSpawnEvent> {
     @NotNull
     @Override
     public Result run(@NotNull PlayerSpawnEvent event) {
-        final Player player = event.getPlayer();
+        PermissionPlayer player = (PermissionPlayer) event.getPlayer();
+
+        if(player.hasPermission("i.can.fly")) {
+            player.setFlying(true);
+            player.setAllowFlying(true);
+            player.sendMessage("You are so cool, you might fly!");
+        }
+
         player.teleport(new Pos(-70, 125, -1400));
         return Result.SUCCESS;
     }
