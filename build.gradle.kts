@@ -1,6 +1,6 @@
 plugins {
     id("java")
-    id("com.github.johnrengelman.shadow") version "8.1.1"
+    id("com.gradleup.shadow") version "9.0.0-rc3"
     id("io.freefair.lombok") version "8.4"
 }
 
@@ -15,7 +15,7 @@ repositories {
 }
 
 dependencies {
-    implementation("net.minestom:minestom-snapshots:4fe2993057")
+    implementation("net.minestom:minestom:2025.07.30-1.21.8")
 
     implementation("net.kyori:adventure-text-minimessage:4.23.0")
     implementation("ch.qos.logback:logback-classic:1.5.18")
